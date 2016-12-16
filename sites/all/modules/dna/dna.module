@@ -49,6 +49,20 @@ function dna_results() {
 }
 
 function match_dna($strand) {
-
-    return $strand;
+    $output = '';
+    switch($strand) {
+        case 'A':
+            $output = 'T';
+            break;
+        case 'T':
+            $output = 'A';
+            break;
+        case 'G':
+            $output = 'C';
+            break;
+        case 'C':
+            $output = 'G';
+            break;
+    }
+    return $output;
 }
