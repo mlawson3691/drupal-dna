@@ -1,0 +1,50 @@
+<?php
+
+class DNAUnitTests extends DrupalUnitTestCase {
+
+    public static function getInfo() {
+        return array(
+            'name' => 'DNA Unit Tests',
+            'description' => 'Unit tests for DNA module.',
+            'group' => 'Custom Tests',
+        );
+    }
+
+    function testDNA() {
+        $description = 'Successfully handles "A" input';
+        $input = 'A';
+        $output = match_dna($input);
+        $expected_output = 'T';
+        $this->assertEqual($output, $expected_output, $description);
+
+        $description = 'Successfully handles "T" input';
+        $input = 'T';
+        $output = match_dna($input);
+        $expected_output = 'A';
+        $this->assertEqual($output, $expected_output, $description);
+
+        $description = 'Successfully handles "C" input';
+        $input = 'C';
+        $output = match_dna($input);
+        $expected_output = 'G';
+        $this->assertEqual($output, $expected_output, $description);
+
+        $description = 'Successfully handles "G" input';
+        $input = 'G';
+        $output = match_dna($input);
+        $expected_output = 'C';
+        $this->assertEqual($output, $expected_output, $description);
+
+        $description = 'Successfully handles multiple characters';
+        $input = 'ATGC';
+        $output = match_dna($input);
+        $expected_output = 'TACG';
+        $this->assertEqual($output, $expected_output, $description);
+
+        $description = 'Successfully handles lowercase characters';
+        $input = 'atgc';
+        $output = match_dna($input);
+        $expected_output = 'TACG';
+        $this->assertEqual($output, $expected_output, $description);
+    }
+}
