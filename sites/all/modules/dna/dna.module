@@ -22,12 +22,24 @@ function dna_form() {
         '#title' => 'DNA Strand',
         '#type' => 'textfield',
         '#description' => t('Enter your DNA strand to be matched.'),
+        '#element_validate' => array('element_validate_characters'),
     );
     $form['submit'] = array(
         '#type' => 'submit',
         '#value' => 'Go!',
     );
     return $form;
+}
+
+function element_validate_characters($element) {
+    $input = strtoupper($element['#value']);
+    $input_array  = str_split($input);
+    $invalid = false;
+    foreach($input_array as $char) {
+        if ($char !== 'A' && $char !== 'T' && $char !== 'C' && $char !== 'G') {
+            form_error($element, t('You may only enter "A", "T", "C", and "G".'));
+        }
+    }
 }
 
 function dna_form_submit($form, &$form_state) {
