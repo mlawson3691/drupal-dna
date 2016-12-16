@@ -1,0 +1,5 @@
+name = Article Viewer Module
+description = A module to show articles using ajax.
+package = Custom Modules
+core = 7.x
+files[] = article_viewer.module
