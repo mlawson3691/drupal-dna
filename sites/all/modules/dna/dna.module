@@ -1,0 +1,54 @@
+<?php
+
+function dna_menu() {
+    $items['dna_calculator'] = array(
+        'title' => 'DNA Calculator',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('dna_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['dna_results_page'] = array(
+        'title' => 'DNA Results',
+        'page callback' => 'dna_results',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
+
+function dna_form() {
+    $form['dna_strand'] = array(
+        '#title' => 'DNA Strand',
+        '#type' => 'textfield',
+        '#description' => t('Enter your DNA strand to be matched.'),
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Go!',
+    );
+    return $form;
+}
+
+function dna_form_submit($form, &$form_state) {
+    $inputted_strand = $form_state['values']['dna_strand'];
+    $_SESSION['input'] = $inputted_strand;
+    $_SESSION['result'] = match_dna($inputted_strand);
+    $form_state['redirect'] = 'dna_results_page';
+}
+
+function dna_results() {
+    $input_strand = $_SESSION['input'];
+    $output_strand = $_SESSION['result'];
+    return '
+        <h3>Original sequence: <strong>' . $input_strand . '</strong></h3>
+        <h3>Matching sequence: <strong>' . $output_strand . '</strong></h3>
+        <br>
+        <a href="dna_calculator">Try Another</a>
+    ';
+}
+
+function match_dna($strand) {
+
+    return $strand;
+}

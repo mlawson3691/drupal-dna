@@ -1,0 +1,7 @@
+name = DNA Calculator
+description = A module that returns the opposite strand of a DNA helix.
+package = Custom Modules
+core = 7.x
+files[] = dna.module
+files[] = dna.test
+dependencies[] = simpletest
