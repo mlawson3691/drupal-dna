@@ -48,3 +48,32 @@ class DNAUnitTests extends DrupalUnitTestCase {
         $this->assertEqual($output, $expected_output, $description);
     }
 }
+
+class DNAFunctionalTests extends DrupalWebTestCase {
+
+    public static function getInfo() {
+        return array(
+            'name' => 'DNA Functional Tests',
+            'description' => 'Functional Tests for the DNA module.',
+            'group' => 'Custom Tests',
+        );
+    }
+
+    public function setUp() {
+        parent::setUp(array('dna'));
+    }
+
+    public function testDNAInvalidInput() {
+        $edit['dna_strand'] = 'dog';
+
+        $this->drupalPost('dna_calculator', $edit, t('Go!'));
+        $this->assertText(t('You may only enter "A", "T", "C", and "G".'));
+    }
+
+    public function testDNAValidInput() {
+        $edit['dna_strand'] = 'atcg';
+
+        $this->drupalPost('dna_calculator', $edit, t('Go!'));
+        $this->assertText(t('TAGC'));
+    }
+}
